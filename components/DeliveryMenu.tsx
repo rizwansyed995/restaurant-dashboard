@@ -18,12 +18,12 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { label: "Overview", href: "/delivery", icon: FileSearch },
-  { label: "Now", href: "/delivery/new", icon: RefreshCw },
-  { label: "Processing", href: "/delivery/processing", icon: RefreshCw },
-  { label: "Dispatched", href: "/delivery/dispatched", icon: Truck },
-  { label: "Delivered", href: "/delivery/delivered", icon: PackageCheck },
-  { label: "Canceled", href: "/delivery/canceled", icon: BellOff },
+  { label: "Overview", href: "/orders", icon: FileSearch },
+  { label: "Now", href: "/orders/new", icon: RefreshCw },
+  { label: "Processing", href: "/orders/processing", icon: RefreshCw },
+  { label: "Dispatched", href: "/orders/dispatched", icon: Truck },
+  { label: "Delivered", href: "/orders/delivered", icon: PackageCheck },
+  { label: "Canceled", href: "/orders/canceled", icon: BellOff },
 ];
 
 export default function DeliveryMenu() {
@@ -35,7 +35,7 @@ export default function DeliveryMenu() {
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href || 
-            (item.href === "/delivery" && pathname === "/delivery");
+            (item.href === "/orders" && pathname === "/orders");
           
           return (
             <Link

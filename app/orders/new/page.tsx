@@ -1,14 +1,14 @@
 import DeliveryLayout from "@/components/DeliveryLayout";
 
-export default function ProcessingDeliveryPage() {
+export default function NewOrdersPage() {
   return (
     <DeliveryLayout>
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-6 text-black dark:text-white">
-          Processing Deliveries
+          New Deliveries
         </h1>
         <p className="text-neutral-600 dark:text-neutral-400">
-          Deliveries currently being processed will appear here.
+          New delivery orders will appear here.
         </p>
       </div>
     </DeliveryLayout>
