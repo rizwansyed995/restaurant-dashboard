@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Inter } from "next/font/google";
+import { ThemeAppProvider } from "@/context/theme-app-context";
+import { AppProviders } from "./providers";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,15 +26,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-white dark:bg-neutral-900 text-black dark:text-white font-sans ${inter.className}`}
       >
-        {children}
+        <AppProviders>
+          <Navbar />
+          {children}
+        </AppProviders>
+
       </body>
     </html>
   );
