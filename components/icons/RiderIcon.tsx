@@ -1,13 +1,15 @@
 "use client";
 
-export function RiderIcon() {
+import React from "react";
+
+export function RiderIcon({ size = 14 }: { size?: number }) {
   return (
     <svg
-      width="13"
-      height="13"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="text-gray-600"
+      className="text-gray-500"
       aria-hidden
     >
       <circle cx="12" cy="7" r="4" />

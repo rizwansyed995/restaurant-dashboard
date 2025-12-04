@@ -1,20 +1,18 @@
 "use client";
 
+import React from "react";
+
 type BrandColorIconProps = {
-  color: string;
+  color?: string;
   size?: number;
 };
 
-export function BrandColorIcon({ color, size = 20 }: BrandColorIconProps) {
+export function BrandColorIcon({ color = "#ef4444", size = 28 }: BrandColorIconProps) {
   return (
     <div
-      className="rounded-full"
-      style={{
-        width: size,
-        height: size,
-        backgroundColor: color,
-      }}
       aria-hidden
+      style={{ width: size, height: size, backgroundColor: color }}
+      className="rounded-full flex-shrink-0"
     />
   );
 }

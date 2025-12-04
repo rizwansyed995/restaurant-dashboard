@@ -22,55 +22,54 @@ export function SmallOrderCard({
   brandColor = "#e3342f",
   countdown = "00:26",
 }: SmallOrderCardProps) {
-  // Example client-side handlers. Replace alerts with fetch/API calls or navigation as needed.
   const handleAccept = useCallback(() => {
-    // Example: call backend API (uncomment & adapt)
-    // fetch(`/api/orders/${orderId}/accept`, { method: "POST" }).then(...)
     alert(`Order ${orderId} accepted`);
   }, [orderId]);
 
   const handleReject = useCallback(() => {
-    // Example: open confirm, then call API
-    const should = confirm(`Reject order ${orderId}?`);
-    if (should) {
-      // fetch(`/api/orders/${orderId}/reject`, { method: "POST" }).then(...)
+    if (confirm(`Reject order ${orderId}?`)) {
       alert(`Order ${orderId} rejected`);
     }
   }, [orderId]);
 
   const handleViewDetails = useCallback(() => {
-    // Example: navigate or open modal
-    alert(`Viewing details for order ${orderId}`);
+    alert(`Viewing details for ${orderId}`);
   }, [orderId]);
 
   return (
-    <div className="w-full p-4 rounded-xl border bg-white shadow-sm flex flex-col gap-3">
-      {/* TOP ROW */}
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <BrandColorIcon color={brandColor} size={20} />
-          <div className="font-semibold text-sm">#{orderId}</div>
+    <div className="w-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-sm p-4">
+      <div className="flex items-start gap-4">
+        {/* Left: brand dot + id + items */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <BrandColorIcon color={brandColor} size={18} />
+              <div className="text-sm font-semibold text-black dark:text-white">#{orderId}</div>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <RiderIcon />
+              <span>{timeAgo}</span>
+            </div>
+          </div>
+
+          <div className="mt-3 text-sm text-gray-700 dark:text-gray-300 truncate">
+            {items}
+          </div>
         </div>
 
-        <div className="flex items-center gap-1 text-xs text-gray-600">
-          <RiderIcon />
-          <span>{timeAgo}</span>
+        {/* Right: buttons (stacked visually inline but aligned right) */}
+        <div className="flex flex-col items-end justify-between gap-3 ml-4">
+          <div className="flex flex-row gap-2">
+            <AcceptButton onClick={handleAccept}>Accept</AcceptButton>
+            <RejectButton onClick={handleReject}>Reject</RejectButton>
+            <ViewDetailsButton onClick={handleViewDetails}>View Details</ViewDetailsButton>
+          </div>
+
+          <div className="text-right text-xs text-gray-500 mt-1">
+            Accept ({countdown})
+          </div>
         </div>
-      </div>
-
-      {/* ITEMS */}
-      <div className="text-xs text-gray-800 leading-tight">{items}</div>
-
-      {/* BUTTONS */}
-      <div className="flex gap-2 justify-end">
-        <AcceptButton onClick={handleAccept}>Accept</AcceptButton>
-        <RejectButton onClick={handleReject}>Reject</RejectButton>
-        <ViewDetailsButton onClick={handleViewDetails}>View Details</ViewDetailsButton>
-      </div>
-
-      {/* COUNTDOWN */}
-      <div className="text-right text-xs text-gray-500 mt-1">
-        Accept ({countdown})
       </div>
     </div>
   );
