@@ -11,8 +11,8 @@ export default function Navbar() {
     const { appTheme } = useAppTheme(); // ✅ correct place to call the hook
 
     const tabs = [
-        { label: "My Orders", href: "/orders" },
-        { label: "Take New Order", href: "/orders/take-order" },
+        { label: "My Orders", href: "/orders/my-orders" },
+        { label: "Take New Order", href: "/orders/new-order" },
         { label: "Table View", href: "/orders/tables" },
     ];
 

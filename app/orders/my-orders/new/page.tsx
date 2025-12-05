@@ -1,9 +1,8 @@
-import DeliveryLayout from "@/components/DeliveryLayout";
+import DeliveryLayout from "@/components/OrdersSidebar/DeliveryLayout";
 
 export default function NewOrdersPage() {
   return (
-    <DeliveryLayout>
-      <div className="p-6">
+    <div className="p-6">
         <h1 className="text-2xl font-bold mb-6 text-black dark:text-white">
           New Deliveries
         </h1>
@@ -11,7 +10,6 @@ export default function NewOrdersPage() {
           New delivery orders will appear here.
         </p>
       </div>
-    </DeliveryLayout>
   );
 }
 
