@@ -1,6 +1,6 @@
 // data/orders.ts
 
-export type OrderStatus = "NEW" | "ACCEPTED" | "READY" | "COMPLETED";
+export type OrderStatus = "NEW" | "ACCEPTED" | "READY" | "COMPLETED" | "CANCELED";
 
 export interface Order {
   id: string;
@@ -68,6 +68,19 @@ export const orders: Order[] = [
     ],
     otp: "28454",
     status: "COMPLETED",
+    riderAssigned: true
+  },
+  {
+    id: "9886",
+    platform: "zomato",
+    platformLogo: "/logos/zomato.png",
+    createdAt: new Date(Date.now() - 35 * 60 * 1000).toISOString(), // 35 mins ago
+    items: [
+      "1x Hazelnut Cold Coffee",
+      "1x Paneer Tikka Sandwich"
+    ],
+    otp: "28454",
+    status: "CANCELED",
     riderAssigned: true
   }
 ];

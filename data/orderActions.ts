@@ -23,6 +23,9 @@ export function getActions(status: OrderStatus): OrderAction[] {
 
     case "COMPLETED":
       return ["VIEW_DETAILS"];
+    
+    case "CANCELED":
+      return ["VIEW_DETAILS"];
     default:
       return [];
   }

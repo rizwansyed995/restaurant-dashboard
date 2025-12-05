@@ -1,56 +1,37 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import { useOrdersUI } from "@/context/orders-ui-context";
 
 export default function OrdersHeader() {
-  const [activeTab, setActiveTab] = useState<"delivery" | "in-store">("delivery");
-  const [query, setQuery] = useState("");
-
-  const changeTab = useCallback((t: "delivery" | "in-store") => {
-    setActiveTab(t);
-  }, []);
-
-  const onSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  }, []);
+  const { activeTab, setActiveTab, searchQuery, setSearchQuery } = useOrdersUI();
 
   return (
-    <div className="
-      w-full h-14 
-      bg-white dark:bg-neutral-900
-      border-b border-gray-200 dark:border-neutral-700 
-      flex items-center justify-between 
-      px-3 md:px-5
-    ">
+    <div className="w-full h-14 bg-white dark:bg-neutral-900 border-b border-gray-200 dark:border-neutral-700 flex items-center justify-between px-3 md:px-5">
 
       {/* LEFT TABS */}
       <div className="flex items-center gap-2">
         <button
-          onClick={() => changeTab("delivery")}
-          className={
-            "px-3 py-2 rounded-md text-sm font-medium transition " +
-            (activeTab === "delivery"
-              ? "bg-slate-900 text-white dark:bg-white dark:text-black"
-              : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800")
-          }
+          onClick={() => setActiveTab("delivery")}
+          className={`px-3 py-2 rounded-md text-sm font-medium ${activeTab === "delivery"
+            ? "bg-slate-900 text-white dark:bg-white dark:text-black"
+            : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
+            }`}
         >
           Delivery
         </button>
 
         <button
-          onClick={() => changeTab("in-store")}
-          className={
-            "px-3 py-2 rounded-md text-sm font-medium transition " +
-            (activeTab === "in-store"
-              ? "bg-slate-900 text-white dark:bg-white dark:text-black"
-              : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800")
-          }
+          onClick={() => setActiveTab("in-store")}
+          className={`px-3 py-2 rounded-md text-sm font-medium ${activeTab === "in-store"
+            ? "bg-slate-900 text-white dark:bg-white dark:text-black"
+            : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
+            }`}
         >
           In-Store
         </button>
       </div>
 
-      {/* CENTER SEARCH */}
+      {/* DESKTOP SEARCH */}
       <div className="hidden md:flex flex-1 justify-center px-6">
         <div className="relative w-full max-w-xl">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
@@ -59,31 +40,17 @@ export default function OrdersHeader() {
               <line x1="16.5" y1="16.5" x2="21" y2="21" strokeWidth="1.5" />
             </svg>
           </span>
-
           <input
-            value={query}
-            onChange={onSearch}
-            placeholder="Search order..."
-            className="
-              w-full h-12 pl-10 pr-3 
-              border border-gray-200 dark:border-neutral-700 
-              rounded-md text-sm 
-              focus:outline-none 
-              bg-white dark:bg-neutral-800 
-              text-black dark:text-white
-            "
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search order…"
+            className="w-full max-w-xl h-12 pl-10 pr-3 border rounded-md bg-white dark:bg-neutral-800"
           />
         </div>
       </div>
-
       {/* RIGHT ICONS */}
       <div className="flex items-center gap-3">
-        <button className="
-          w-10 h-10 rounded-md border 
-          border-gray-200 dark:border-neutral-700 
-          flex items-center justify-center 
-          hover:bg-gray-100 dark:hover:bg-neutral-800
-        ">
+        <button className=" w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800 ">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="dark:text-white">
             <path d="M4 6v12" strokeWidth="1.5" />
             <path d="M8 6v12" strokeWidth="1.5" />
@@ -92,13 +59,7 @@ export default function OrdersHeader() {
             <path d="M20 6v12" strokeWidth="1.5" />
           </svg>
         </button>
-
-        <button className="
-          w-10 h-10 rounded-md border 
-          border-gray-200 dark:border-neutral-700 
-          flex items-center justify-center 
-          hover:bg-gray-100 dark:hover:bg-neutral-800
-        ">
+        <button className=" w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800 ">
           <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" className="dark:text-white">
             <path d="M4 6h16" strokeWidth="1.5" />
             <path d="M8 12h8" strokeWidth="1.5" />
@@ -107,21 +68,15 @@ export default function OrdersHeader() {
         </button>
       </div>
 
-      {/* MOBILE SEARCH BAR */}
-      <div className="md:hidden w-full mt-2">
+      {/* MOBILE SEARCH */}
+      <div className="md:hidden w-full absolute left-0 top-14 px-3">
         <input
-          value={query}
-          onChange={onSearch}
-          placeholder="Search order..."
-          className="
-            w-full h-10 px-3 
-            border border-gray-300 dark:border-neutral-700 
-            rounded-md text-sm 
-            bg-white dark:bg-neutral-800 
-            text-black dark:text-white
-          "
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search order…"
+          className="w-full h-10 px-3 border rounded-md bg-white dark:bg-neutral-800"
         />
       </div>
-    </div>
+    </div >
   );
 }

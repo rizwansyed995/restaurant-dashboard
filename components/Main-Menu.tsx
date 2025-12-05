@@ -45,11 +45,6 @@ export default function MainMenu() {
         },
 
         {
-            label: "Order Management",
-            icon: ClipboardList,
-            href: "/order-management",
-        },
-        {
             label: "Menu Management",
             icon: Layers,
             children: [

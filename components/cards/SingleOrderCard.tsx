@@ -5,32 +5,26 @@ import { AcceptButton } from "@/components/buttons/AcceptButton";
 import { RejectButton } from "@/components/buttons/RejectButton";
 import { ViewDetailsButton } from "@/components/buttons/ViewDetailsButton";
 import { OrderAction } from "@/data/orderActions";
-import { OrderStatus } from "@/data/orders";
+import { Order, OrderStatus } from "@/data/orders";
 import { useDynamicTimeAgo } from "@/utils/useDynamicTimeAgo";
 import { useCountdown } from "@/utils/useCountdown";
 import { CheckCircle, XCircle } from "lucide-react";
 
-export type SingleOrderCardProps = {
-  orderId: string;
-  createdAt: string;
-  items: string[];
-  platformLogo: string;
-  otp?: string;
-  status: OrderStatus;
+export interface SingleOrderCardProps {
+  order: Order;
   actions: OrderAction[];
-  riderAssigned: boolean;
-};
+}
 
-export default function SingleOrderCard({
-  orderId,
-  createdAt,
-  items,
-  platformLogo,
-  otp,
-  status,
-  actions,
-  riderAssigned,
-}: SingleOrderCardProps) {
+export default function SingleOrderCard({ order, actions }: SingleOrderCardProps) {
+  const {
+    id,
+    createdAt,
+    items,
+    platformLogo,
+    otp,
+    status,
+    riderAssigned
+  } = order;
 
   // LIVE time ago (freeze for completed)
   const timeAgo = useDynamicTimeAgo(createdAt, status === "COMPLETED");
@@ -38,18 +32,20 @@ export default function SingleOrderCard({
   // Countdown only for NEW orders
   const countdown = useCountdown(120, status === "NEW");
 
-  const handleAccept = useCallback(() => alert(`Accepted ${orderId}`), [orderId]);
-  const handleReject = useCallback(() => confirm(`Reject ${orderId}?`) && alert(`Rejected ${orderId}`), [orderId]);
-  const handleCancel = useCallback(() => alert(`Canceled ${orderId}`), [orderId]);
-  const handleReady = useCallback(() => alert(`Order ${orderId} marked READY`), [orderId]);
-  const handleHandedOff = useCallback(() => alert(`Order ${orderId} handed off`), [orderId]);
-  const handleView = useCallback(() => alert(`View details ${orderId}`), [orderId]);
+  // Handlers
+  const handleAccept = useCallback(() => alert(`Accepted ${id}`), [id]);
+  const handleReject = useCallback(() => confirm(`Reject ${id}?`) && alert(`Rejected ${id}`), [id]);
+  const handleCancel = useCallback(() => alert(`Canceled ${id}`), [id]);
+  const handleReady = useCallback(() => alert(`Order ${id} marked READY`), [id]);
+  const handleHandoff = useCallback(() => alert(`Order ${id} handed off`), [id]);
+  const handleView = useCallback(() => alert(`View details for ${id}`), [id]);
 
   const statusColors = {
     NEW: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
     ACCEPTED: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300",
     READY: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
     COMPLETED: "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300",
+    CANCELED: "bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300",
   };
   const [mounted, setMounted] = React.useState(false);
 
@@ -126,7 +122,7 @@ export default function SingleOrderCard({
 
         case "HANDED_OFF":
           return (
-            <AcceptButton key="handoff" onClick={handleHandedOff} className="bg-green-600 text-white">
+            <AcceptButton key="handoff" onClick={handleHandoff} className="bg-green-600 text-white text-[12px]">
               Handed Off
             </AcceptButton>
           );
@@ -149,6 +145,10 @@ export default function SingleOrderCard({
           alt="brand"
           className="w-12 h-12 object-contain rounded"
         />
+        <div>
+          Order id: {id}
+        </div>
+
 
         <div className="flex items-center gap-2">
 
@@ -182,7 +182,7 @@ export default function SingleOrderCard({
       </p>
 
       {/* OTP */}
-      {status === "COMPLETED" ?
+      {(status === "COMPLETED") || (status === "CANCELED") ?
         <div className="mt-2 inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-xs font-semibold">
           OTP: ----
         </div>
