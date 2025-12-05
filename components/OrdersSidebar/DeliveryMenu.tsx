@@ -21,8 +21,8 @@ const menuItems: MenuItem[] = [
   { label: "Overview", href: "/orders/my-orders", icon: FileSearch },
   { label: "New", href: "/orders/my-orders/new", icon: RefreshCw },
   { label: "Processing", href: "/orders/my-orders/processing", icon: RefreshCw },
-  { label: "Dispatched", href: "/orders/my-orders/dispatched", icon: Truck },
-  { label: "Delivered", href: "/orders/my-orders/delivered", icon: PackageCheck },
+  { label: "Ready", href: "/orders/my-orders/ready", icon: Truck },
+  { label: "All Orders", href: "/orders/my-orders/all-orders", icon: PackageCheck },
   { label: "Canceled", href: "/orders/my-orders/canceled", icon: BellOff },
 ];
 
