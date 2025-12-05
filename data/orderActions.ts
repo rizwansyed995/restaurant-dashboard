@@ -1,6 +1,6 @@
 // data/orderActions.ts
 
-import { Order, OrderStatus } from "./orders";
+import { OrderStatus } from "./orders";
 
 export type OrderAction =
   | "VIEW_DETAILS"
@@ -22,6 +22,7 @@ export function getActions(status: OrderStatus): OrderAction[] {
       return ["VIEW_DETAILS", "CANCEL", "HANDED_OFF"];
 
     case "COMPLETED":
+      return ["VIEW_DETAILS"];
     default:
       return [];
   }

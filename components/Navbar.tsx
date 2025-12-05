@@ -5,6 +5,7 @@ import { Menu, Bell, PersonStandingIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import { useAppTheme } from "@/context/theme-app-context";
+import MainMenu from "@/components/Main-Menu";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -20,7 +21,7 @@ export default function Navbar() {
         <nav className="flex items-center justify-between px-4 py-3 border-b dark:border-neutral-700 bg-white dark:bg-neutral-900">
             {/* Left side */}
             <div className="flex items-center gap-3">
-                <Menu className="w-6 h-6 cursor-pointer border-black dark:border-white text-black dark:text-white" />
+                <MainMenu />
                 <span className="text-xl font-semibold border-black dark:border-white text-black dark:text-white">
                     rista
                 </span>
