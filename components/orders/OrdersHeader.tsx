@@ -49,6 +49,8 @@ export default function OrdersHeader() {
       border-b border-gray-200 dark:border-neutral-700 
       flex items-center justify-between 
       px-3 md:px-5
+      pt-4
+      pb-4
       sticky top-0 z-50 
     "
     >

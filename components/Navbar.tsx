@@ -20,7 +20,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="flex items-center justify-between px-4 py-3  dark:border-neutral-700 bg-white dark:bg-neutral-900">
+        <nav className="flex items-center justify-between px-4 pt-3  dark:border-neutral-700 bg-white dark:bg-neutral-900">
             {/* Left side */}
             <div className="flex items-center gap-3">
                 <MainMenu />

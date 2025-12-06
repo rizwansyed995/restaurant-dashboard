@@ -4,7 +4,14 @@ interface UniversalButtonProps {
   label: string;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "danger" | "success" | "warning" | "neutral";
+  variant?: 
+    | "primary"
+    | "danger"
+    | "success"
+    | "warning"
+    | "neutral"
+    | "accept"
+    | "reject";
   className?: string;
 }
 
@@ -16,19 +23,30 @@ export default function UniversalButton({
   className = "",
 }: UniversalButtonProps) {
   const base =
-    "h-10 flex items-center justify-center rounded-md text-sm font-semibold transition";
+    "h-10 flex items-center justify-center rounded-md text-sm font-semibold transition p-5";
 
   const styles: Record<string, string> = {
     primary:
       "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
+
     danger:
       "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
+
     success:
       "bg-green-600 text-white hover:bg-green-700 active:bg-green-800",
+
     warning:
       "bg-yellow-500 text-black hover:bg-yellow-600 active:bg-yellow-700",
+
     neutral:
       "bg-neutral-200 text-neutral-800 hover:bg-neutral-300 active:bg-neutral-400 dark:bg-neutral-700 dark:text-neutral-200",
+
+    // NEW VARIANTS
+    accept:
+      "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
+
+    reject:
+      "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
   };
 
   const btnClass = `${base} ${styles[variant]} ${className}`;

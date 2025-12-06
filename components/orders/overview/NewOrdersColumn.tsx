@@ -25,7 +25,7 @@ export default function NewOrdersColumn() {
       </div>
 
       {/* LIST */}
-      <div className="flex-1 overflow-y-auto p-3 custom-scrollbar ">
+      <div className="flex-1 overflow-y-auto p-3 custom-scrollbar">
         {newOrders.map((order) => (
           <div key={order.id} className="mb-3">
             <SingleOrderCard order={order} actions={getActions(order.status)} />
