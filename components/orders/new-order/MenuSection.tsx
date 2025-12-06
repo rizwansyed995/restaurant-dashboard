@@ -13,26 +13,25 @@ export default function MenuSection() {
   const activeCategoryLabel = CATEGORIES.find((c) => c.id === activeCategory)?.label;
 
   return (
-    // Changed: Removed h-full to allow natural height growth
-    <div className="flex w-full bg-slate-50 dark:bg-neutral-900/50">
+    // Updated: Added flex-col for mobile, md:flex-row for desktop
+    <div className="flex flex-col md:flex-row w-full bg-slate-50 dark:bg-neutral-900 transition-colors duration-300">
       
-      {/* 1. Sidebar Component */}
+      {/* 1. Sidebar Component (Responsive) */}
       <CategorySidebar 
         activeCategory={activeCategory} 
         onSelectCategory={setActiveCategory} 
       />
 
       {/* 2. Main Content Grid */}
-      {/* Changed: Removed overflow-y-auto, h-full, custom-scrollbar */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-4 md:p-6">
         
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
               {activeCategoryLabel}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1">
               {filteredItems.length} Items
             </p>
           </div>
