@@ -16,7 +16,7 @@ export default function TopBar() {
         w-full 
         flex items-center 
         gap-3 
-        p-4 
+        p-2 
         overflow-x-auto 
         justify-between
         bg-white dark:bg-neutral-900 

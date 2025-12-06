@@ -11,7 +11,7 @@ interface CategorySidebarProps {
 export default function CategorySidebar({ activeCategory, onSelectCategory }: CategorySidebarProps) {
   return (
     // Changed: Reduced width (w-48), removed h-full, overflow-y-auto, custom-scrollbar
-    <div className="w-48 flex-shrink-0 bg-white dark:bg-neutral-900 border-r border-gray-200 dark:border-neutral-800y">
+    <div className="w-48 flex-shrink-0 bg-white dark:bg-neutral-900 border-r border-gray-200 dark:border-neutral-800">
       <div className="p-2 space-y-1">
         {CATEGORIES.map((cat) => {
           const isActive = activeCategory === cat.id;

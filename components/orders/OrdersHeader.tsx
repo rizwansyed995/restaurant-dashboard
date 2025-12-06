@@ -2,7 +2,7 @@
 
 import { useOrdersUI } from "@/context/orders-ui-context";
 import { useSearchFilter } from "@/context/search-filter-context";
-import { Filter, Hash, List, Search, Store, Utensils, X } from "lucide-react";
+import { Filter, Hash, List, Scan, Search, Store, Utensils, X } from "lucide-react";
 import { useState } from "react";
 import { orders } from "@/data/orders";
 import SearchBar from "@/components/orders/SearchBar";
@@ -46,13 +46,13 @@ export default function OrdersHeader() {
   return (
     <div
       className="
-      w-full h-14 
+      w-full
       bg-white dark:bg-neutral-900 
       border-b border-gray-200 dark:border-neutral-700 
       flex items-center justify-between 
       px-3 md:px-5
-      pt-4
-      pb-4
+      pt-2
+      pb-2
       sticky top-0 z-50 
     "
     >
@@ -110,18 +110,16 @@ export default function OrdersHeader() {
 
 
       {/* ----------- CENTER SEARCH BAR (Desktop) ----------- */}
-      <div className="hidden md:block">
-        <SearchBar />
-      </div>
+      <SearchBar />
+
       {/* ----------- RIGHT ICONS + MOBILE SEARCH BUTTON ----------- */}
       <div className="flex items-center gap-3">
 
-        {/* MOBILE SEARCH BUTTON */}
-        <SearchBar />
+       
 
         {/* DESKTOP RIGHT ICON */}
         <button className="hidden md:flex w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800">
-          <List size={16} className="dark:text-white" />
+          <Scan size={16} className="dark:text-white" />
         </button>
       </div>
 
