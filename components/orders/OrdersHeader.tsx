@@ -5,6 +5,8 @@ import { useSearchFilter } from "@/context/search-filter-context";
 import { Filter, Hash, List, Search, Store, Utensils, X } from "lucide-react";
 import { useState } from "react";
 import { orders } from "@/data/orders";
+import SearchBar from "@/components/orders/SearchBar";
+import UniversalButton from "../buttons/UniversalButton";
 
 
 export default function OrdersHeader() {
@@ -56,102 +58,59 @@ export default function OrdersHeader() {
     >
       {/* ----------- LEFT TABS (hidden when mobile search is active) ----------- */}
       {/* DELIVERY TAB */}
-      <div className="flex items-center justify-between gap-5">
-        <button
-          onClick={() => setActiveTab("delivery")}
-          className={`
-    relative px-3 py-2 rounded-md text-sm font-medium
-    ${activeTab === "delivery"
-              ? "bg-slate-900 text-white dark:bg-white dark:text-black"
-              : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
-            }
-  `}
-        >
-          Delivery
+      <div className="flex items-center justify-between gap-5 relative">
+
+        {/* DELIVERY TAB */}
+        <div className="relative">
+          <UniversalButton
+            label="Delivery"
+            onClick={() => setActiveTab("delivery")}
+            variant={activeTab === "delivery" ? "tabActive" : "tabInactive"}
+            className="px-3 py-2 text-sm font-medium rounded-md"
+          />
 
           {newDeliveryCount > 0 && (
             <span
               className="
-        absolute -top-1 -right-2 
-        bg-red-500 text-white 
-        text-[10px] font-bold 
-        px-1.5 py-0.5 rounded-full
-     "
+          absolute -top-1 -right-2
+          bg-red-500 text-white
+          text-[10px] font-bold
+          px-1.5 py-0.5 rounded-full
+        "
             >
               {newDeliveryCount}
             </span>
           )}
-        </button>
+        </div>
 
         {/* IN-STORE TAB */}
-        <button
-          onClick={() => setActiveTab("in-store")}
-          className={`
-    relative px-3 py-2 rounded-md text-sm font-medium
-    ${activeTab === "in-store"
-              ? "bg-slate-900 text-white dark:bg-white dark:text-black"
-              : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
-            }
-  `}
-        >
-          In-Store
+        <div className="relative">
+          <UniversalButton
+            label="In-Store"
+            onClick={() => setActiveTab("in-store")}
+            variant={activeTab === "in-store" ? "tabActive" : "tabInactive"}
+            className="px-3 py-2 text-sm font-medium rounded-md"
+          />
 
           {newInStoreCount > 0 && (
             <span
               className="
-        absolute -top-1 -right-2 
-        bg-red-500 text-white 
-        text-[10px] font-bold 
-        px-1.5 py-0.5 rounded-full
-     "
+          absolute -top-1 -right-2
+          bg-red-500 text-white
+          text-[10px] font-bold
+          px-1.5 py-0.5 rounded-full
+        "
             >
               {newInStoreCount}
             </span>
           )}
-        </button>
+        </div>
+
       </div>
 
 
       {/* ----------- CENTER SEARCH BAR (Desktop) ----------- */}
-      <div className="hidden md:flex flex-1 justify-center px-6">
-        <div className="relative w-full max-w-xl">
-          <button
-            onClick={() => setOpen(!open)}
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
-          >
-            {iconMap[searchField]}
-          </button>
-
-          <input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search orders…"
-            className="w-full h-12 pl-10 pr-10 border rounded-md bg-white dark:bg-neutral-800 dark:border-neutral-700"
-          />
-
-          <Search size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
-
-          {open && (
-            <div className="absolute top-14 left-0 w-44 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 rounded-md shadow-lg z-50">
-              {FILTER_OPTIONS.map((opt) => (
-                <button
-                  key={opt.key}
-                  onClick={() => {
-                    setSearchField(opt.key as any);
-                    setOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-neutral-800
-                    ${searchField === opt.key ? "font-semibold text-black dark:text-white" : "text-gray-600 dark:text-gray-300"}
-                  `}
-                >
-                  {iconMap[opt.key]}
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <SearchBar />
 
       {/* ----------- RIGHT ICONS + MOBILE SEARCH BUTTON ----------- */}
       <div className="flex items-center gap-3">

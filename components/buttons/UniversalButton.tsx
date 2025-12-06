@@ -4,14 +4,16 @@ interface UniversalButtonProps {
   label: string;
   href?: string;
   onClick?: () => void;
-  variant?: 
-    | "primary"
-    | "danger"
-    | "success"
-    | "warning"
-    | "neutral"
-    | "accept"
-    | "reject";
+  variant?:
+  | "primary"
+  | "danger"
+  | "success"
+  | "warning"
+  | "neutral"
+  | "accept"
+  | "reject"
+  | "tabActive"
+  | "tabInactive";
   className?: string;
 }
 
@@ -39,15 +41,21 @@ export default function UniversalButton({
       "bg-yellow-500 text-black hover:bg-yellow-600 active:bg-yellow-700",
 
     neutral:
-      "bg-neutral-200 text-neutral-800 hover:bg-neutral-300 active:bg-neutral-400 dark:bg-neutral-700 dark:text-neutral-200",
+      "bg-neutral-200 text-neutral-800 active:bg-neutral-400 dark:bg-neutral-700 dark:text-neutral-200",
 
-    // NEW VARIANTS
     accept:
       "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
 
     reject:
       "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
+
+    tabActive:
+      "bg-slate-900 text-white dark:bg-white dark:text-black",
+
+    tabInactive:
+      "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800",
   };
+
 
   const btnClass = `${base} ${styles[variant]} ${className}`;
 

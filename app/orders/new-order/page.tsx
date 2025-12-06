@@ -1,9 +1,9 @@
-import React from 'react'
+import MenuSection from "@/components/orders/new-order/MenuSection";
 
-function page() {
+
+export default function NewOrderPage() {
   return (
-    <div>page</div>
-  )
+      <MenuSection />
+    
+  );
 }
-
-export default page

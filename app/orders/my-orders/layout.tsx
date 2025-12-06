@@ -1,5 +1,5 @@
 import OrdersHeader from "@/components/orders/OrdersHeader";
-import DeliveryLayout from "@/components/OrdersSidebar/DeliveryLayout";
+import DeliveryLayout from "@/components/orders/OrdersSidebar/DeliveryLayout";
 import { OrdersUIProvider } from "@/context/orders-ui-context";
 import { SearchFilterProvider } from "@/context/search-filter-context";
 
