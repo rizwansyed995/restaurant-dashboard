@@ -110,18 +110,14 @@ export default function OrdersHeader() {
 
 
       {/* ----------- CENTER SEARCH BAR (Desktop) ----------- */}
-      <SearchBar />
-
+      <div className="hidden md:block">
+        <SearchBar />
+      </div>
       {/* ----------- RIGHT ICONS + MOBILE SEARCH BUTTON ----------- */}
       <div className="flex items-center gap-3">
 
         {/* MOBILE SEARCH BUTTON */}
-        <button
-          className="md:hidden w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800"
-          onClick={() => setMobileSearchOpen(true)}
-        >
-          <Search size={18} className="dark:text-white" />
-        </button>
+        <SearchBar />
 
         {/* DESKTOP RIGHT ICON */}
         <button className="hidden md:flex w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800">

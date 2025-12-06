@@ -25,7 +25,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
                 <MainMenu />
                 <span className="text-xl font-semibold border-black dark:border-white text-black dark:text-white">
-                    rista
+                    Savouré
                 </span>
             </div>
 

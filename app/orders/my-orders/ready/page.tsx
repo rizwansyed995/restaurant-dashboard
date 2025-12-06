@@ -1,6 +1,5 @@
 "use client";
 
-import DeliveryLayout from "@/components/orders/OrdersSidebar/DeliveryLayout";
 import { orders, Order } from "@/data/orders";
 import { getActions } from "@/data/orderActions";
 import { useFilteredOrders } from "@/hooks/useFilteredOrders";
@@ -19,7 +18,7 @@ export default function DispatchedOrdersPage() {
       {/* HEADER */}
       <div className="p-3 border-b border-neutral-200 dark:border-neutral-800 flex items-center gap-2 bg-white dark:bg-neutral-900/50 rounded-t-xl">
         <h1 className="text-lg font-bold text-gray-500 dark:text-gray-200 uppercase tracking-wide">
-          READY ORDERS
+          READY 
         </h1>
         <span className="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-200">
           {readyOrders.length}

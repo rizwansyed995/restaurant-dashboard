@@ -1,6 +1,6 @@
 "use client";
 
-import DeliveryLayout from "@/components/orders/OrdersSidebar/DeliveryLayout";
+import DeliveryLayout from "@/components/OrdersSidebar/DeliveryLayout";
 import { orders, Order } from "@/data/orders";
 import { getActions } from "@/data/orderActions";
 import { useFilteredOrders } from "@/hooks/useFilteredOrders";

@@ -7,6 +7,11 @@ export default function CartItemsList() {
     { id: 1, name: "Tri-Pepper Chilly Paneer", qty: 1, price: 576, extras: ["Extra Pepper"] },
     { id: 2, name: "Chicken Salami Sandwich", qty: 3, price: 1220, extras: ["Chipotle Sauce"] },
     { id: 3, name: "Peri Peri Chicken Pizza", qty: 3, price: 943, extras: ["More Cheese"] },
+    { id: 4, name: "Peri Peri Chicken Pizza", qty: 3, price: 943, extras: ["More Cheese"] },
+    { id: 5, name: "Peri Peri Chicken Pizza", qty: 3, price: 943, extras: ["More Cheese"] },
+    { id: 6, name: "Peri Peri Chicken Pizza", qty: 3, price: 943, extras: ["More Cheese"] },
+    { id: 7, name: "Peri Peri Chicken Pizza", qty: 3, price: 943, extras: ["More Cheese"] },
+  
   ];
 
   return (
