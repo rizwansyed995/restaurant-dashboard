@@ -8,17 +8,21 @@ import BillingActions from "@/components/orders/new-order/BillingSectionComponen
 
 export default function BillingSection() {
   return (
-    <div className="flex flex-col bg-white text-sm overflow-y-hidden">
+    // Removed: 'overflow-y-hidden', 'h-full'
+    <div className="flex flex-col bg-white text-sm">
 
       <BillingHeader />
       <BillingOrderMeta />
 
-      <div className="flex-1 overflow-auto border-t">
+      {/* Removed: 'flex-1 overflow-auto' - Cart now grows naturally */}
+      <div className="border-t min-h-[200px]"> 
         <CartItemsList />
       </div>
 
-      <BillingSummary />
-      <BillingActions />
+      <div className="mt-auto">
+        <BillingSummary />
+        <BillingActions />
+      </div>
     </div>
   );
 }

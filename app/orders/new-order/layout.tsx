@@ -1,28 +1,27 @@
 import TopBar from "@/components/orders/new-order/TopBar";
-import MenuSection from "@/components/orders/new-order/MenuSection";
 import SupportBar from "@/components/orders/new-order/SupportBar";
 import BillingSection from "@/components/orders/new-order/BillingSection";
 import { OrdersUIProvider } from "@/context/orders-ui-context";
 import { SearchFilterProvider } from "@/context/search-filter-context";
-import OrdersHeader from "@/components/orders/OrdersHeader";
 
 export default function NewOrderLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="w-full h-screen flex bg-gray-100">
+        // Changed: 'h-screen' -> 'min-h-screen' so the page can grow
+        <div className="w-full min-h-screen flex bg-gray-100">
             <OrdersUIProvider>
                 <SearchFilterProvider>
                     {/* LEFT SIDE */}
-                    <div className="flex flex-col w-[70%] h-full">
+                    {/* Removed 'h-full' so it grows naturally */}
+                    <div className="flex flex-col w-[70%] border-r border-gray-200 dark:border-neutral-700">
 
                         {/* Sticky Top Bar */}
                         <div className="sticky top-0 z-50">
                             <TopBar />
                         </div>
 
-                        {/* Scrollable area for Menu + children */}
-                        <div className="flex-1 overflow-auto">
-                            {/* Menu Placeholder (children can override or be inside) */}
-                            
+                        {/* Main Content Area */}
+                        {/* Removed 'flex-1 overflow-auto' to disable internal scroll */}
+                        <div className="flex-1 bg-slate-50 dark:bg-neutral-900/50">
                             {children}
                         </div>
 
@@ -31,8 +30,12 @@ export default function NewOrderLayout({ children }: { children: React.ReactNode
                     </div>
 
                     {/* RIGHT SIDE BILLING */}
-                    <div className="w-[30%] h-full border-l border-gray-300">
-                        <BillingSection />
+                    {/* Removed 'h-full' */}
+                    <div className="w-[30%] bg-white dark:bg-neutral-900">
+                        {/* We add sticky here so the bill stays visible if the menu is long */}
+                        <div className="sticky top-0">
+                            <BillingSection />
+                        </div>
                     </div>
                 </SearchFilterProvider>
             </OrdersUIProvider>

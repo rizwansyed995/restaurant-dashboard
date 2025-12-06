@@ -32,8 +32,15 @@ export default function MenuCard({ item }: MenuCardProps) {
         rounded-xl shadow-sm hover:shadow-md transition-shadow cursor-pointer
       "
     >
-      {/* Image Placeholder */}
-      <div className={cn("w-24 h-24 rounded-lg flex-shrink-0 object-cover", item.imageColor)} />
+      {/* Changed: Replaced div placeholder with img tag.
+        Using <img> instead of Next <Image> to avoid domain config issues 
+        with external placeholder URLs for now.
+      */}
+      <img 
+        src={item.image} 
+        alt={item.name}
+        className="w-24 h-24 rounded-lg flex-shrink-0 object-cover bg-gray-100"
+      />
 
       {/* Content */}
       <div className="flex-1 flex flex-col justify-between h-24 py-1">

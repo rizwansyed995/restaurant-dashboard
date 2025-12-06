@@ -13,7 +13,8 @@ export default function MenuSection() {
   const activeCategoryLabel = CATEGORIES.find((c) => c.id === activeCategory)?.label;
 
   return (
-    <div className="flex w-full h-full bg-slate-50 dark:bg-neutral-900/50">
+    // Changed: Removed h-full to allow natural height growth
+    <div className="flex w-full bg-slate-50 dark:bg-neutral-900/50">
       
       {/* 1. Sidebar Component */}
       <CategorySidebar 
@@ -22,7 +23,8 @@ export default function MenuSection() {
       />
 
       {/* 2. Main Content Grid */}
-      <div className="flex-1 p-6 overflow-y-auto h-full custom-scrollbar">
+      {/* Changed: Removed overflow-y-auto, h-full, custom-scrollbar */}
+      <div className="flex-1 p-6">
         
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
