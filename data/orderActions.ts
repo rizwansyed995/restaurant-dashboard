@@ -16,10 +16,10 @@ export function getActions(status: OrderStatus): OrderAction[] {
       return ["VIEW_DETAILS", "REJECT", "ACCEPT"];
 
     case "ACCEPTED":
-      return ["VIEW_DETAILS", "CANCEL", "MARK_READY"];
+      return ["VIEW_DETAILS",  "MARK_READY"];
 
     case "READY":
-      return ["VIEW_DETAILS", "CANCEL", "HANDED_OFF"];
+      return ["VIEW_DETAILS", "HANDED_OFF"];
 
     case "COMPLETED":
       return ["VIEW_DETAILS"];
