@@ -1,32 +1,13 @@
 "use client";
 
-import { useOrdersUI } from "@/context/orders-ui-context";
 import { orders } from "@/data/orders";
 import { getActions } from "@/data/orderActions";
 import SingleOrderCard from "@/components/cards/SingleOrderCard";
-import { SmallOrderCard } from "@/components/cards/SmallOrderCard";
+import { useFilteredOrders } from "@/hooks/useFilteredOrders";
+import { Order } from "@/data/orders";
 
 export default function AllOrdersPage() {
-  const { activeTab, searchQuery } = useOrdersUI();
-
-  // 1. Filter by tab
-  const filteredByTab = orders.filter((o) => {
-    if (activeTab === "delivery") {
-      return o.platform !== "inhouse"; // Zomato + Swiggy
-    }
-    return o.platform === "inhouse"; // In-store dining
-  });
-
-  // 2. Apply search filter
-  const filteredOrders = filteredByTab.filter((o) => {
-    const text = [
-      o.id,
-      o.items.join(" "),
-      o.platform,
-    ].join(" ").toLowerCase();
-
-    return text.includes(searchQuery.toLowerCase());
-  });
+  const { filteredOrders } = useFilteredOrders(orders);
 
   return (
     <div className="p-6">
@@ -35,14 +16,19 @@ export default function AllOrdersPage() {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredOrders.map((order) => (
+        {filteredOrders.map((order: Order) => (
           <SingleOrderCard
             key={order.id}
-            order={order}
-            actions={getActions(order.status)}
+            order={order}                             // ✅ pass full order object
+            actions={getActions(order.status)}        // ✅ pass actions array
           />
-          
         ))}
+
+        {filteredOrders.length === 0 && (
+          <p className="text-zinc-500 col-span-full text-center">
+            No matching orders found.
+          </p>
+        )}
       </div>
     </div>
   );

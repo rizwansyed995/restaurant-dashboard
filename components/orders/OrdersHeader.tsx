@@ -1,82 +1,220 @@
 "use client";
 
 import { useOrdersUI } from "@/context/orders-ui-context";
+import { useSearchFilter } from "@/context/search-filter-context";
+import { Filter, Hash, List, Search, Store, Utensils, X } from "lucide-react";
+import { useState } from "react";
+import { orders } from "@/data/orders";
+
 
 export default function OrdersHeader() {
   const { activeTab, setActiveTab, searchQuery, setSearchQuery } = useOrdersUI();
+  const { searchField, setSearchField } = useSearchFilter();
+  const [open, setOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const deliveryOrders = orders.filter(
+    (o) => o.platform === "swiggy" || o.platform === "zomato"
+  );
+
+  const inStoreOrders = orders.filter(
+    (o) => o.platform === "inhouse"
+  );
+
+  const newDeliveryCount = deliveryOrders.filter((o) => o.status === "NEW").length;
+  const newInStoreCount = inStoreOrders.filter((o) => o.status === "NEW").length;
+
+
+
+  const iconMap: any = {
+    all: <Filter size={18} />,
+    id: <Hash size={18} />,
+    table: <Utensils size={18} />,
+    platform: <Store size={18} />,
+    items: <List size={18} />,
+  };
+
+  const FILTER_OPTIONS = [
+    { key: "all", label: "Search All" },
+    { key: "id", label: "Order ID" },
+    { key: "table", label: "Table Number" },
+    { key: "platform", label: "Platform" },
+    { key: "items", label: "Items" },
+  ];
 
   return (
-    <div className="w-full h-14 bg-white dark:bg-neutral-900 border-b border-gray-200 dark:border-neutral-700 flex items-center justify-between px-3 md:px-5">
-
-      {/* LEFT TABS */}
-      <div className="flex items-center gap-2">
+    <div
+      className="
+      w-full h-14 
+      bg-white dark:bg-neutral-900 
+      border-b border-gray-200 dark:border-neutral-700 
+      flex items-center justify-between 
+      px-3 md:px-5
+      sticky top-0 z-50 
+    "
+    >
+      {/* ----------- LEFT TABS (hidden when mobile search is active) ----------- */}
+      {/* DELIVERY TAB */}
+      <div className="flex items-center justify-between gap-5">
         <button
           onClick={() => setActiveTab("delivery")}
-          className={`px-3 py-2 rounded-md text-sm font-medium ${activeTab === "delivery"
-            ? "bg-slate-900 text-white dark:bg-white dark:text-black"
-            : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
-            }`}
+          className={`
+    relative px-3 py-2 rounded-md text-sm font-medium
+    ${activeTab === "delivery"
+              ? "bg-slate-900 text-white dark:bg-white dark:text-black"
+              : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
+            }
+  `}
         >
           Delivery
+
+          {newDeliveryCount > 0 && (
+            <span
+              className="
+        absolute -top-1 -right-2 
+        bg-red-500 text-white 
+        text-[10px] font-bold 
+        px-1.5 py-0.5 rounded-full
+     "
+            >
+              {newDeliveryCount}
+            </span>
+          )}
         </button>
 
+        {/* IN-STORE TAB */}
         <button
           onClick={() => setActiveTab("in-store")}
-          className={`px-3 py-2 rounded-md text-sm font-medium ${activeTab === "in-store"
-            ? "bg-slate-900 text-white dark:bg-white dark:text-black"
-            : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
-            }`}
+          className={`
+    relative px-3 py-2 rounded-md text-sm font-medium
+    ${activeTab === "in-store"
+              ? "bg-slate-900 text-white dark:bg-white dark:text-black"
+              : "text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-neutral-800"
+            }
+  `}
         >
           In-Store
+
+          {newInStoreCount > 0 && (
+            <span
+              className="
+        absolute -top-1 -right-2 
+        bg-red-500 text-white 
+        text-[10px] font-bold 
+        px-1.5 py-0.5 rounded-full
+     "
+            >
+              {newInStoreCount}
+            </span>
+          )}
         </button>
       </div>
 
-      {/* DESKTOP SEARCH */}
+
+      {/* ----------- CENTER SEARCH BAR (Desktop) ----------- */}
       <div className="hidden md:flex flex-1 justify-center px-6">
         <div className="relative w-full max-w-xl">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
-            <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor">
-              <circle cx="11" cy="11" r="7" strokeWidth="1.5" fill="none" />
-              <line x1="16.5" y1="16.5" x2="21" y2="21" strokeWidth="1.5" />
-            </svg>
-          </span>
+          <button
+            onClick={() => setOpen(!open)}
+            className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+          >
+            {iconMap[searchField]}
+          </button>
+
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search order…"
-            className="w-full max-w-xl h-12 pl-10 pr-3 border rounded-md bg-white dark:bg-neutral-800"
+            placeholder="Search orders…"
+            className="w-full h-12 pl-10 pr-10 border rounded-md bg-white dark:bg-neutral-800 dark:border-neutral-700"
           />
+
+          <Search size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
+
+          {open && (
+            <div className="absolute top-14 left-0 w-44 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 rounded-md shadow-lg z-50">
+              {FILTER_OPTIONS.map((opt) => (
+                <button
+                  key={opt.key}
+                  onClick={() => {
+                    setSearchField(opt.key as any);
+                    setOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-neutral-800
+                    ${searchField === opt.key ? "font-semibold text-black dark:text-white" : "text-gray-600 dark:text-gray-300"}
+                  `}
+                >
+                  {iconMap[opt.key]}
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-      {/* RIGHT ICONS */}
+
+      {/* ----------- RIGHT ICONS + MOBILE SEARCH BUTTON ----------- */}
       <div className="flex items-center gap-3">
-        <button className=" w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800 ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="dark:text-white">
-            <path d="M4 6v12" strokeWidth="1.5" />
-            <path d="M8 6v12" strokeWidth="1.5" />
-            <path d="M12 6v12" strokeWidth="1.5" />
-            <path d="M16 6v12" strokeWidth="1.5" />
-            <path d="M20 6v12" strokeWidth="1.5" />
-          </svg>
+
+        {/* MOBILE SEARCH BUTTON */}
+        <button
+          className="md:hidden w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800"
+          onClick={() => setMobileSearchOpen(true)}
+        >
+          <Search size={18} className="dark:text-white" />
         </button>
-        <button className=" w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800 ">
-          <svg width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" className="dark:text-white">
-            <path d="M4 6h16" strokeWidth="1.5" />
-            <path d="M8 12h8" strokeWidth="1.5" />
-            <path d="M6 18h12" strokeWidth="1.5" />
-          </svg>
+
+        {/* DESKTOP RIGHT ICON */}
+        <button className="hidden md:flex w-10 h-10 rounded-md border border-gray-200 dark:border-neutral-700 items-center justify-center hover:bg-gray-100 dark:hover:bg-neutral-800">
+          <List size={16} className="dark:text-white" />
         </button>
       </div>
 
-      {/* MOBILE SEARCH */}
-      <div className="md:hidden w-full absolute left-0 top-14 px-3">
-        <input
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search order…"
-          className="w-full h-10 px-3 border rounded-md bg-white dark:bg-neutral-800"
-        />
-      </div>
-    </div >
+      {/* ----------- MOBILE EXPANDED SEARCH BAR ----------- */}
+      {mobileSearchOpen && (
+        <div className="absolute left-0 top-0 w-full h-14 bg-white dark:bg-neutral-900 flex items-center px-3 gap-2 transition-all duration-300">
+
+          {/* Close */}
+          <button onClick={() => setMobileSearchOpen(false)}>
+            <X size={20} className="text-gray-600 dark:text-gray-300" />
+          </button>
+
+          {/* Filter */}
+          <button onClick={() => setOpen(!open)} className="text-gray-600 dark:text-gray-300">
+            {iconMap[searchField]}
+          </button>
+
+          <div className="relative flex-1">
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus
+              placeholder="Search orders…"
+              className="w-full h-10 pl-3 pr-10 border rounded-md bg-white dark:bg-neutral-800 dark:border-neutral-700"
+            />
+            <Search size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
+          </div>
+
+          {/* Mobile dropdown */}
+          {open && (
+            <div className="absolute top-14 left-2 w-44 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 rounded-md shadow-lg z-50">
+              {FILTER_OPTIONS.map((opt) => (
+                <button
+                  key={opt.key}
+                  onClick={() => {
+                    setSearchField(opt.key as any);
+                    setOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-neutral-800
+                    ${searchField === opt.key ? "font-semibold text-black dark:text-white" : "text-gray-600 dark:text-gray-300"}
+                  `}
+                >
+                  {iconMap[opt.key]}
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

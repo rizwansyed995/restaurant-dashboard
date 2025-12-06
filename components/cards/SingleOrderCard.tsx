@@ -79,7 +79,7 @@ export default function SingleOrderCard({ order, actions }: SingleOrderCardProps
       switch (act) {
 
         case "VIEW_DETAILS":
-          return <ViewDetailsButton key="view">View</ViewDetailsButton>;
+          return <ViewDetailsButton  key="view">View</ViewDetailsButton>;
 
         case "REJECT":
           return <RejectButton key="reject" onClick={handleReject}>Reject</RejectButton>;
@@ -134,7 +134,8 @@ export default function SingleOrderCard({ order, actions }: SingleOrderCardProps
   };
 
   return (
-    <article className="w-full max-w-md bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-md p-5">
+    <article className="w-full max-w-md bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-md p-5 flex flex-col justify-between min-h-[260px]">
+
 
       {/* TOP ROW */}
       <div className="flex justify-between items-center">
@@ -172,30 +173,49 @@ export default function SingleOrderCard({ order, actions }: SingleOrderCardProps
       </div>
 
       {/* Status Pill */}
-      <div className={`mt-3 inline-block px-3 py-1 rounded-full text-xs font-semibold ${statusColors[status]}`}>
-        {status}
+      {/* Status + Table Number (Only for Inhouse) */}
+      <div className="flex items-center justify-between gap-2 mt-3">
+
+        {/* STATUS PILL */}
+        <span
+          className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[status]}`}
+        >
+          {status}
+        </span>
+
+        {/* TABLE NUMBER PILL (INHOUSE ONLY) */}
+        {order.platform === "inhouse" && order.tableNumber && (
+          <span className="px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-semibold">
+            Table {order.tableNumber}
+          </span>
+        )}
       </div>
+
 
       {/* Items */}
       <p className="mt-3 text-sm text-gray-700 dark:text-gray-300 truncate">
         {items.join(", ")}
       </p>
 
-      {/* OTP */}
-      {(status === "COMPLETED") || (status === "CANCELED") ?
-        <div className="mt-2 inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-xs font-semibold">
-          OTP: ----
-        </div>
-        :
-        <div className="mt-2 inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-xs font-semibold">
-          OTP: {otp}
-        </div>
-      }
+
+      {/* OTP — Disabled for Inhouse */}
+      {order.platform !== "inhouse" && (
+        (status === "COMPLETED" || status === "CANCELED") ? (
+          <div className="mt-2 inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-xs font-semibold w-fit">
+            OTP: ----
+          </div>
+        ) : (
+          <div className="mt-2 inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-md text-xs font-semibold w-fit">
+            OTP: {otp}
+          </div>
+        )
+      )}
+
 
 
       {/* BUTTONS */}
       <div
-        className="grid gap-3 mt-4 "
+        className="grid gap-3 mt-4"
         style={{ gridTemplateColumns: `repeat(${actions.length}, 1fr)` }}
       >
         {renderButtons()}

@@ -98,7 +98,7 @@ export default function MainMenu() {
           bg-white dark:bg-neutral-900
           border-r border-neutral-200 dark:border-neutral-700
           z-50 p-5 flex flex-col 
-          transform transition-transform duration-300
+          transform transition-transform duration-300 z-1000
           ${open ? "translate-x-0" : "-translate-x-full"}
         `}
             >
